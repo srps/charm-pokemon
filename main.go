@@ -132,6 +132,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case stateShutdown:
 			return m.updateShutdown(msg)
 		case statePokedex:
+			if msg.String() == "ctrl+c" {
+				return m, tea.Quit
+			}
+
 			pokedexModel, cmd := m.pokedexModel.Update(msg)
 			m.pokedexModel = pokedexModel.(ui.PokedexModel)
 
@@ -141,6 +145,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			return m, cmd
 		}
+
+	case ui.MsgBack:
+		m.state = stateMainMenu
+		return m, nil
 
 	case tickMsg:
 		if m.state == stateShutdown {

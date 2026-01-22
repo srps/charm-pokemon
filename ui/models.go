@@ -25,6 +25,8 @@ const (
 	StateDetail
 )
 
+type MsgBack struct{}
+
 type RenderMode int
 
 const (
@@ -627,7 +629,7 @@ func (m PokedexModel) viewDetail() string {
 func (m PokedexModel) updatePokedexView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case "q", "esc":
-		return m, tea.Quit
+		return m, func() tea.Msg { return MsgBack{} }
 
 	case "left", "h":
 		if m.currentPokemon != nil {
