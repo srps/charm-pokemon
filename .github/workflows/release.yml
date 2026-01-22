@@ -33,7 +33,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.x' # Based on go.mod
+          go-version: '1.25.x'
 
       - name: Build Binary
         env:
@@ -50,22 +50,38 @@ jobs:
           
           # Bundle name
           BUNDLE_NAME="charm-pokemon-${{ matrix.os }}-${{ matrix.arch }}"
-          mkdir -p "bundles"
           
-          # Archive
+          # Prepare for artifact upload
           if [ "${{ matrix.os }}" = "windows" ]; then
             mv "dist/${BINARY_NAME}" "${BUNDLE_NAME}.exe"
-            # No zip for now, just raw exe or simple zip
           else
             mv "dist/${BINARY_NAME}" "${BUNDLE_NAME}"
           fi
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: binaries-${{ matrix.os }}-${{ matrix.arch }}
+          path: charm-pokemon-*
+          retention-days: 1
+
+  publish:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: binaries-*
+          merge-multiple: true
+
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            charm-pokemon-*
-            *.exe
+          files: charm-pokemon-*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
