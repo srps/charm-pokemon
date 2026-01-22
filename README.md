@@ -1,6 +1,10 @@
 # Ϟ Charm Pokemon Ϟ
 
+Developed with ❤️ for my daughter
+
 A beautiful, high-performance Pokemon terminal application (TUI) built with Go and the [Charm](https://charm.sh/) libraries.
+
+Originally a simple greeter Charm app made in half an hour, now using agents to explore fun stuff to add
 
 ![Pokemon TUI](https://raw.githubusercontent.com/srps/charm-pokemon/main/.github/screenshot.png)
 
@@ -10,18 +14,17 @@ A beautiful, high-performance Pokemon terminal application (TUI) built with Go a
 - **Rich Graphics**:
   - **Half-block ASCII**: 24-bit color representations that work in any modern terminal.
   - **Sixel Support**: Pixel-perfect graphics for terminals that support the Sixel protocol (toggle with `v`).
-- **Multilingual**: Comprehensive data in both Portuguese (PT-BR) and English.
+- **Multilingual**: Comprehensive data in both Portuguese (PT-PT) and English.
 - **Live Search**: Find Pokemon instantly by name or ID.
 - **Smart Filters**: Browse by Type, Generation, or Region.
 - **Favorites**: Mark and persist your favorite Pokemon.
-- **Optimized Binary**: Advanced minification and embedding techniques keep the standalone binary size under 30MB.
 - **App Launcher**: Integrated shortcuts to common system tools.
 
 ## 🚀 Getting Started
 
 ### 📦 Download Binaries
 
-The easiest way to use charm-pokemon is to download a pre-built binary for your system from the **[Releases](https://github.com/yourusername/charm-pokemon/releases)** page.
+The easiest way to use charm-pokemon is to download a pre-built binary for your system from the **[Releases](https://github.com/srps/charm-pokemon/releases)** page.
 
 1. Download the version for your OS (Windows, Linux, or macOS).
 2. (Linux/macOS) Make it executable: `chmod +x charm-pokemon-*`
@@ -37,7 +40,7 @@ If you prefer to build it yourself, ensure you have **Go 1.25+** installed.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/charm-pokemon.git
+git clone https://github.com/srps/charm-pokemon.git
 cd charm-pokemon
 
 # Build the optimized executable (embeds ~30MB of data)
