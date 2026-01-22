@@ -239,9 +239,10 @@ func (m PokedexModel) viewPokedex() string {
 
 		for _, str := range menuStrings {
 			s.WriteString(lipgloss.NewStyle().
-				Align(lipgloss.Center).
+				Align(lipgloss.Left).
 				Width(m.width).
-				Render(fmt.Sprintf("%-*s", maxWidth, str)) + "\n")
+				PaddingLeft((m.width-maxWidth)/2).
+				Render(str) + "\n")
 		}
 
 		s.WriteString("\n")
@@ -305,7 +306,10 @@ func (m PokedexModel) viewSearch() string {
 				typeEmoji = getTypeEmoji(pokemon.Types[0])
 			}
 
-			s.WriteString(style.Render(fmt.Sprintf("%s #%4d %-20s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
+			s.WriteString(lipgloss.NewStyle().
+				Align(lipgloss.Left).
+				Width(m.width).
+				Render(style.Render(fmt.Sprintf("%s #%4d %-20s %s", cursor, pokemon.ID, pokemon.NamePT, typeEmoji))) + "\n")
 		}
 	} else if m.searchInput.Value() != "" {
 		s.WriteString(lipgloss.NewStyle().Faint(true).Render(LabelNO_RESULTS))
@@ -344,7 +348,10 @@ func (m PokedexModel) viewBrowseType() string {
 		typeEmoji := getTypeEmoji(typeName)
 		count := len(m.pokedex.GetPokemonByType(typeName))
 
-		s.WriteString(style.Render(fmt.Sprintf("%s %s %-12s - %3d %s\n", cursor, typeEmoji, typeName, count, LabelPOKEMON)))
+		s.WriteString(lipgloss.NewStyle().
+			Align(lipgloss.Left).
+			Width(m.width).
+			Render(style.Render(fmt.Sprintf("%s %s %-12s - %3d %s", cursor, typeEmoji, typeName, count, LabelPOKEMON))) + "\n")
 	}
 
 	s.WriteString("\n")
@@ -378,7 +385,10 @@ func (m PokedexModel) viewBrowseGeneration() string {
 
 		count := len(m.pokedex.GetPokemonByGeneration(gen.ID))
 
-		s.WriteString(style.Render(fmt.Sprintf("%s %-20s (%-10s) - %3d %s\n", cursor, gen.NamePT, gen.Region, count, LabelPOKEMON)))
+		s.WriteString(lipgloss.NewStyle().
+			Align(lipgloss.Left).
+			Width(m.width).
+			Render(style.Render(fmt.Sprintf("%s %-20s (%-10s) - %3d %s", cursor, gen.NamePT, gen.Region, count, LabelPOKEMON))) + "\n")
 	}
 
 	s.WriteString("\n")
@@ -424,7 +434,10 @@ func (m PokedexModel) viewBrowseGenerationList() string {
 			typeEmoji = getTypeEmoji(pokemon.Types[0])
 		}
 
-		s.WriteString(style.Render(fmt.Sprintf("%s #%4d %-20s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
+		s.WriteString(lipgloss.NewStyle().
+			Align(lipgloss.Left).
+			Width(m.width).
+			Render(style.Render(fmt.Sprintf("%s #%4d %-20s %s", cursor, pokemon.ID, pokemon.NamePT, typeEmoji))) + "\n")
 	}
 
 	s.WriteString("\n")
@@ -469,7 +482,10 @@ func (m PokedexModel) viewFavorites() string {
 				typeEmoji = getTypeEmoji(pokemon.Types[0])
 			}
 
-			s.WriteString(style.Render(fmt.Sprintf("%s #%d %s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
+			s.WriteString(lipgloss.NewStyle().
+				Align(lipgloss.Left).
+				Width(m.width).
+				Render(style.Render(fmt.Sprintf("%s #%d %s %s", cursor, pokemon.ID, pokemon.NamePT, typeEmoji))) + "\n")
 		}
 
 		s.WriteString("\n")
