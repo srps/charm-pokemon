@@ -1,0 +1,1 @@
+{"id":677,"name":"espurr","height":3,"weight":35,"stats":[{"base_stat":62,"stat":{"name":"hp"}},{"base_stat":48,"stat":{"name":"attack"}},{"base_stat":54,"stat":{"name":"defense"}},{"base_stat":63,"stat":{"name":"special-attack"}},{"base_stat":60,"stat":{"name":"special-defense"}},{"base_stat":68,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"psychic"}}]}

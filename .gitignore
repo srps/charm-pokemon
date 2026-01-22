@@ -1,1 +1,18 @@
-assets/
+# Binaries and executables
+*.exe
+pokemon
+
+# IDE and local configuration
+.idea/
+.vscode/
+*.local
+
+# Assets
+# Ignore all assets by default
+assets/*
+# Except for the embedded data and Go source files
+!assets/embed/
+!assets/*.go
+
+# Go dependencies
+vendor/

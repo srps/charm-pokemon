@@ -1,0 +1,1 @@
+{"id":513,"name":"pansear","height":6,"weight":110,"stats":[{"base_stat":50,"stat":{"name":"hp"}},{"base_stat":53,"stat":{"name":"attack"}},{"base_stat":48,"stat":{"name":"defense"}},{"base_stat":53,"stat":{"name":"special-attack"}},{"base_stat":48,"stat":{"name":"special-defense"}},{"base_stat":64,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"fire"}}]}

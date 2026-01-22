@@ -1,0 +1,1 @@
+{"id":350,"name":"milotic","height":62,"weight":1620,"stats":[{"base_stat":95,"stat":{"name":"hp"}},{"base_stat":60,"stat":{"name":"attack"}},{"base_stat":79,"stat":{"name":"defense"}},{"base_stat":100,"stat":{"name":"special-attack"}},{"base_stat":125,"stat":{"name":"special-defense"}},{"base_stat":81,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"water"}}]}

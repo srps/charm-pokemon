@@ -1,0 +1,1 @@
+{"id":11,"name":"metapod","height":7,"weight":99,"stats":[{"base_stat":50,"stat":{"name":"hp"}},{"base_stat":20,"stat":{"name":"attack"}},{"base_stat":55,"stat":{"name":"defense"}},{"base_stat":25,"stat":{"name":"special-attack"}},{"base_stat":25,"stat":{"name":"special-defense"}},{"base_stat":30,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"bug"}}]}

@@ -1,0 +1,1 @@
+{"id":705,"name":"sliggoo","height":8,"weight":175,"stats":[{"base_stat":68,"stat":{"name":"hp"}},{"base_stat":75,"stat":{"name":"attack"}},{"base_stat":53,"stat":{"name":"defense"}},{"base_stat":83,"stat":{"name":"special-attack"}},{"base_stat":113,"stat":{"name":"special-defense"}},{"base_stat":60,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"dragon"}}]}

@@ -1,0 +1,1 @@
+{"id":440,"name":"happiny","height":6,"weight":244,"stats":[{"base_stat":100,"stat":{"name":"hp"}},{"base_stat":5,"stat":{"name":"attack"}},{"base_stat":5,"stat":{"name":"defense"}},{"base_stat":15,"stat":{"name":"special-attack"}},{"base_stat":65,"stat":{"name":"special-defense"}},{"base_stat":30,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"normal"}}]}

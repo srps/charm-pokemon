@@ -1,0 +1,1 @@
+{"id":977,"name":"dondozo","height":120,"weight":2200,"stats":[{"base_stat":150,"stat":{"name":"hp"}},{"base_stat":100,"stat":{"name":"attack"}},{"base_stat":115,"stat":{"name":"defense"}},{"base_stat":65,"stat":{"name":"special-attack"}},{"base_stat":65,"stat":{"name":"special-defense"}},{"base_stat":35,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"water"}}]}

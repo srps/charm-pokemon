@@ -1,0 +1,1 @@
+{"id":531,"name":"audino","height":11,"weight":310,"stats":[{"base_stat":103,"stat":{"name":"hp"}},{"base_stat":60,"stat":{"name":"attack"}},{"base_stat":86,"stat":{"name":"defense"}},{"base_stat":60,"stat":{"name":"special-attack"}},{"base_stat":86,"stat":{"name":"special-defense"}},{"base_stat":50,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"normal"}}]}

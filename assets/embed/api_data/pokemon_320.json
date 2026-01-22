@@ -1,0 +1,1 @@
+{"id":320,"name":"wailmer","height":20,"weight":1300,"stats":[{"base_stat":130,"stat":{"name":"hp"}},{"base_stat":70,"stat":{"name":"attack"}},{"base_stat":35,"stat":{"name":"defense"}},{"base_stat":70,"stat":{"name":"special-attack"}},{"base_stat":35,"stat":{"name":"special-defense"}},{"base_stat":60,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"water"}}]}

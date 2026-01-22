@@ -1,0 +1,1 @@
+{"id":532,"name":"timburr","height":6,"weight":125,"stats":[{"base_stat":75,"stat":{"name":"hp"}},{"base_stat":80,"stat":{"name":"attack"}},{"base_stat":55,"stat":{"name":"defense"}},{"base_stat":25,"stat":{"name":"special-attack"}},{"base_stat":35,"stat":{"name":"special-defense"}},{"base_stat":35,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"fighting"}}]}

@@ -1,0 +1,1 @@
+{"id":449,"name":"hippopotas","height":8,"weight":495,"stats":[{"base_stat":68,"stat":{"name":"hp"}},{"base_stat":72,"stat":{"name":"attack"}},{"base_stat":78,"stat":{"name":"defense"}},{"base_stat":38,"stat":{"name":"special-attack"}},{"base_stat":42,"stat":{"name":"special-defense"}},{"base_stat":32,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"ground"}}]}

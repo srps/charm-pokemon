@@ -1,0 +1,1 @@
+{"id":508,"name":"stoutland","height":12,"weight":610,"stats":[{"base_stat":85,"stat":{"name":"hp"}},{"base_stat":110,"stat":{"name":"attack"}},{"base_stat":90,"stat":{"name":"defense"}},{"base_stat":45,"stat":{"name":"special-attack"}},{"base_stat":90,"stat":{"name":"special-defense"}},{"base_stat":80,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"normal"}}]}

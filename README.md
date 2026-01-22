@@ -19,20 +19,28 @@ A beautiful, high-performance Pokemon terminal application (TUI) built with Go a
 
 ## 🚀 Getting Started
 
+### 📦 Download Binaries
+
+The easiest way to use charm-pokemon is to download a pre-built binary for your system from the **[Releases](https://github.com/yourusername/charm-pokemon/releases)** page.
+
+1. Download the version for your OS (Windows, Linux, or macOS).
+2. (Linux/macOS) Make it executable: `chmod +x charm-pokemon-*`
+3. Run it!
+
+### 🛠️ Building from Source
+
+If you prefer to build it yourself, ensure you have **Go 1.25+** installed.
+
 ### Prerequisites
 
 - Go 1.21 or higher
-
-### Installation & Build
-
-For the best experience, build the optimized version which embeds all Pokemon data and ASCII art:
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/charm-pokemon.git
 cd charm-pokemon
 
-# Build the optimized executable
+# Build the optimized executable (embeds ~30MB of data)
 go build -tags realdata -ldflags="-s -w" -o pokemon.exe .
 
 # Run it!
@@ -65,6 +73,7 @@ The project uses a sophisticated data pipeline to minimize binary size while mai
 4. **Build Tags**: Uses `-tags realdata` to switch between sample development data and the full embedded dataset.
 
 To rebuild the data from scratch:
+
 ```bash
 go run tools/download_data/main.go
 go run tools/convert_sprites/main.go

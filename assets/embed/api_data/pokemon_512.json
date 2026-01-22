@@ -1,0 +1,1 @@
+{"id":512,"name":"simisage","height":11,"weight":305,"stats":[{"base_stat":75,"stat":{"name":"hp"}},{"base_stat":98,"stat":{"name":"attack"}},{"base_stat":63,"stat":{"name":"defense"}},{"base_stat":98,"stat":{"name":"special-attack"}},{"base_stat":63,"stat":{"name":"special-defense"}},{"base_stat":101,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"grass"}}]}

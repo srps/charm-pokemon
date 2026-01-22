@@ -1,0 +1,1 @@
+{"id":401,"name":"kricketot","height":3,"weight":22,"stats":[{"base_stat":37,"stat":{"name":"hp"}},{"base_stat":25,"stat":{"name":"attack"}},{"base_stat":41,"stat":{"name":"defense"}},{"base_stat":25,"stat":{"name":"special-attack"}},{"base_stat":41,"stat":{"name":"special-defense"}},{"base_stat":25,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"bug"}}]}

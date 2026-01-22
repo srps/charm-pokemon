@@ -1,0 +1,1 @@
+{"id":683,"name":"aromatisse","height":8,"weight":155,"stats":[{"base_stat":101,"stat":{"name":"hp"}},{"base_stat":72,"stat":{"name":"attack"}},{"base_stat":72,"stat":{"name":"defense"}},{"base_stat":99,"stat":{"name":"special-attack"}},{"base_stat":89,"stat":{"name":"special-defense"}},{"base_stat":29,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"fairy"}}]}

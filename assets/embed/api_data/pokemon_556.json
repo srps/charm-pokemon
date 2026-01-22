@@ -1,0 +1,1 @@
+{"id":556,"name":"maractus","height":10,"weight":280,"stats":[{"base_stat":75,"stat":{"name":"hp"}},{"base_stat":86,"stat":{"name":"attack"}},{"base_stat":67,"stat":{"name":"defense"}},{"base_stat":106,"stat":{"name":"special-attack"}},{"base_stat":67,"stat":{"name":"special-defense"}},{"base_stat":60,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"grass"}}]}

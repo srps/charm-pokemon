@@ -1,0 +1,1 @@
+{"id":749,"name":"mudbray","height":10,"weight":1100,"stats":[{"base_stat":70,"stat":{"name":"hp"}},{"base_stat":100,"stat":{"name":"attack"}},{"base_stat":70,"stat":{"name":"defense"}},{"base_stat":45,"stat":{"name":"special-attack"}},{"base_stat":55,"stat":{"name":"special-defense"}},{"base_stat":45,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"ground"}}]}

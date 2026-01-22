@@ -1,0 +1,1 @@
+{"id":871,"name":"pincurchin","height":3,"weight":10,"stats":[{"base_stat":48,"stat":{"name":"hp"}},{"base_stat":101,"stat":{"name":"attack"}},{"base_stat":95,"stat":{"name":"defense"}},{"base_stat":91,"stat":{"name":"special-attack"}},{"base_stat":85,"stat":{"name":"special-defense"}},{"base_stat":15,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"electric"}}]}

@@ -1,0 +1,1 @@
+{"id":201,"name":"unown","height":5,"weight":50,"stats":[{"base_stat":48,"stat":{"name":"hp"}},{"base_stat":72,"stat":{"name":"attack"}},{"base_stat":48,"stat":{"name":"defense"}},{"base_stat":72,"stat":{"name":"special-attack"}},{"base_stat":48,"stat":{"name":"special-defense"}},{"base_stat":48,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"psychic"}}]}

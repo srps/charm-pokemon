@@ -1,0 +1,1 @@
+{"id":126,"name":"magmar","height":13,"weight":445,"stats":[{"base_stat":65,"stat":{"name":"hp"}},{"base_stat":95,"stat":{"name":"attack"}},{"base_stat":57,"stat":{"name":"defense"}},{"base_stat":100,"stat":{"name":"special-attack"}},{"base_stat":85,"stat":{"name":"special-defense"}},{"base_stat":93,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"fire"}}]}

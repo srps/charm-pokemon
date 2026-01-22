@@ -1,0 +1,1 @@
+{"id":569,"name":"garbodor","height":19,"weight":1073,"stats":[{"base_stat":80,"stat":{"name":"hp"}},{"base_stat":95,"stat":{"name":"attack"}},{"base_stat":82,"stat":{"name":"defense"}},{"base_stat":60,"stat":{"name":"special-attack"}},{"base_stat":82,"stat":{"name":"special-defense"}},{"base_stat":75,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"poison"}}]}

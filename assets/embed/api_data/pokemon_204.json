@@ -1,0 +1,1 @@
+{"id":204,"name":"pineco","height":6,"weight":72,"stats":[{"base_stat":50,"stat":{"name":"hp"}},{"base_stat":65,"stat":{"name":"attack"}},{"base_stat":90,"stat":{"name":"defense"}},{"base_stat":35,"stat":{"name":"special-attack"}},{"base_stat":35,"stat":{"name":"special-defense"}},{"base_stat":15,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"bug"}}]}

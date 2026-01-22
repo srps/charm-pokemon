@@ -1,0 +1,1 @@
+{"id":612,"name":"haxorus","height":18,"weight":1055,"stats":[{"base_stat":76,"stat":{"name":"hp"}},{"base_stat":147,"stat":{"name":"attack"}},{"base_stat":90,"stat":{"name":"defense"}},{"base_stat":60,"stat":{"name":"special-attack"}},{"base_stat":70,"stat":{"name":"special-defense"}},{"base_stat":97,"stat":{"name":"speed"}}],"types":[{"slot":1,"type":{"name":"dragon"}}]}
