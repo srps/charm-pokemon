@@ -828,27 +828,29 @@ func (m PokedexModel) GetCurrentPokemon() *models.Pokemon {
 }
 
 func (m PokedexModel) loadPokemonArt(pokemon *models.Pokemon) string {
-	ext := ".ascii"
-	if m.renderMode == RenderSixel {
-		ext = ".sixel"
-	}
-
 	suffix := ""
 	if m.showShiny {
 		suffix = "_shiny"
 	}
 
-	// Try to load from disk (lazy-loading for smaller binary)
-	path := fmt.Sprintf("assets/art/%d%s%s", pokemon.ID, suffix, ext)
-
-	data, err := os.ReadFile(path)
-	if err == nil {
-		return string(data)
+	// For ASCII mode, try embedded FS first (optimized binary)
+	if m.renderMode == RenderHalfBlock {
+		embeddedPath := fmt.Sprintf("embed/art/%d%s.ascii", pokemon.ID, suffix)
+		data, err := assets.EmbedFS.ReadFile(embeddedPath)
+		if err == nil {
+			return string(data)
+		}
 	}
 
-	// Fallback: try embedded FS
-	embeddedPath := fmt.Sprintf("art/%d%s%s", pokemon.ID, suffix, ext)
-	data, err = assets.ArtFS.ReadFile(embeddedPath)
+	// Determine extension based on render mode
+	ext := ".ascii"
+	if m.renderMode == RenderSixel {
+		ext = ".sixel"
+	}
+
+	// Try to load from disk (for Sixel mode or fallback)
+	path := fmt.Sprintf("assets/art/%d%s%s", pokemon.ID, suffix, ext)
+	data, err := os.ReadFile(path)
 	if err == nil {
 		return string(data)
 	}

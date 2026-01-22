@@ -43,7 +43,7 @@ func GetPokedex() *models.Pokedex {
 	// 1. Load all generations to map pokemon to generations
 	pokemonToGen := make(map[int]int)
 	for i := 1; i <= 9; i++ {
-		genData, err := assets.ArtFS.ReadFile(fmt.Sprintf("api_data/generation_%d.json", i))
+		genData, err := assets.EmbedFS.ReadFile(fmt.Sprintf("embed/api_data/generation_%d.json", i))
 		if err != nil {
 			continue
 		}
@@ -66,7 +66,7 @@ func GetPokedex() *models.Pokedex {
 
 	// 2. Load all pokemon data
 	for i := 1; i <= 1025; i++ {
-		pokemonData, err := assets.ArtFS.ReadFile(fmt.Sprintf("api_data/pokemon_%d.json", i))
+		pokemonData, err := assets.EmbedFS.ReadFile(fmt.Sprintf("embed/api_data/pokemon_%d.json", i))
 		if err != nil {
 			continue
 		}
