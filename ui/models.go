@@ -186,6 +186,7 @@ func (m PokedexModel) viewPokedex() string {
 
 		s.WriteString(lipgloss.NewStyle().
 			Align(lipgloss.Center).
+			Width(m.width).
 			Render(fmt.Sprintf("#%d %s %s\n", pokemon.ID, pokemon.NamePT, typeEmojis)))
 		s.WriteString("\n")
 
@@ -199,20 +200,34 @@ func (m PokedexModel) viewPokedex() string {
 			{LabelFAVORITES, "4"},
 		}
 
+		// Calculate max width for menu alignment
+		maxWidth := 0
+		var menuStrings []string
 		for _, item := range menuItems {
+			str := fmt.Sprintf("[%s] %s", item.hotkey, item.label)
+			if len(str) > maxWidth {
+				maxWidth = len(str)
+			}
+			menuStrings = append(menuStrings, str)
+		}
+
+		for _, str := range menuStrings {
 			s.WriteString(lipgloss.NewStyle().
 				Align(lipgloss.Center).
-				Render(fmt.Sprintf("[%s] %s\n", item.hotkey, item.label)))
+				Width(m.width).
+				Render(fmt.Sprintf("%-*s", maxWidth, str)) + "\n")
 		}
 
 		s.WriteString("\n")
 		s.WriteString(lipgloss.NewStyle().
 			Align(lipgloss.Center).
+			Width(m.width).
 			Render(fmt.Sprintf("%s   Enter para detalhes   %s", LabelPREV, LabelNEXT)))
 		s.WriteString("\n\n")
 
 		s.WriteString(lipgloss.NewStyle().
 			Align(lipgloss.Center).
+			Width(m.width).
 			Faint(true).
 			Render(LabelPRESS_Q))
 	}
@@ -264,7 +279,7 @@ func (m PokedexModel) viewSearch() string {
 				typeEmoji = getTypeEmoji(pokemon.Types[0])
 			}
 
-			s.WriteString(style.Render(fmt.Sprintf("%s #%d %s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
+			s.WriteString(style.Render(fmt.Sprintf("%s #%4d %-20s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
 		}
 	} else if m.searchQuery != "" {
 		s.WriteString(lipgloss.NewStyle().Faint(true).Render(LabelNO_RESULTS))
@@ -303,7 +318,7 @@ func (m PokedexModel) viewBrowseType() string {
 		typeEmoji := getTypeEmoji(typeName)
 		count := len(m.pokedex.GetPokemonByType(typeName))
 
-		s.WriteString(style.Render(fmt.Sprintf("%s %s %s - %d %s\n", cursor, typeEmoji, typeName, count, LabelPOKEMON)))
+		s.WriteString(style.Render(fmt.Sprintf("%s %s %-12s - %3d %s\n", cursor, typeEmoji, typeName, count, LabelPOKEMON)))
 	}
 
 	s.WriteString("\n")
@@ -337,7 +352,7 @@ func (m PokedexModel) viewBrowseGeneration() string {
 
 		count := len(m.pokedex.GetPokemonByGeneration(gen.ID))
 
-		s.WriteString(style.Render(fmt.Sprintf("%s %s (%s) - %d %s\n", cursor, gen.NamePT, gen.Region, count, LabelPOKEMON)))
+		s.WriteString(style.Render(fmt.Sprintf("%s %-20s (%-10s) - %3d %s\n", cursor, gen.NamePT, gen.Region, count, LabelPOKEMON)))
 	}
 
 	s.WriteString("\n")
@@ -383,7 +398,7 @@ func (m PokedexModel) viewBrowseGenerationList() string {
 			typeEmoji = getTypeEmoji(pokemon.Types[0])
 		}
 
-		s.WriteString(style.Render(fmt.Sprintf("%s #%d %s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
+		s.WriteString(style.Render(fmt.Sprintf("%s #%4d %-20s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
 	}
 
 	s.WriteString("\n")
