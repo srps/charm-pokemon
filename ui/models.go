@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
@@ -39,7 +40,7 @@ type PokedexModel struct {
 	currentPokemon *models.Pokemon
 	showShiny      bool
 
-	searchQuery         string
+	searchInput         textinput.Model
 	searchResults       []*models.Pokemon
 	selectedSearchIndex int
 
@@ -50,6 +51,9 @@ type PokedexModel struct {
 
 	pokemonList       []*models.Pokemon
 	pokemonListCursor int
+
+	selectedType       string
+	selectedGeneration int
 
 	menuCursor int
 
@@ -70,13 +74,19 @@ func NewPokedexModel(pokedex *models.Pokedex, favorites *models.FavoritesManager
 		}
 	}
 
+	// Initialize textinput for search
+	ti := textinput.New()
+	ti.Placeholder = "Digite o nome do Pokémon..."
+	ti.CharLimit = 50
+	ti.Width = 30
+
 	return PokedexModel{
 		state:                StatePokedexView,
 		pokedex:              pokedex,
 		favorites:            favorites,
 		currentPokemon:       initialPokemon,
 		showShiny:            false,
-		searchQuery:          "",
+		searchInput:          ti,
 		searchResults:        make([]*models.Pokemon, 0),
 		selectedSearchIndex:  0,
 		typeCursor:           0,
@@ -85,6 +95,8 @@ func NewPokedexModel(pokedex *models.Pokedex, favorites *models.FavoritesManager
 		favoritesCursor:      0,
 		pokemonList:          make([]*models.Pokemon, 0),
 		pokemonListCursor:    0,
+		selectedType:         "",
+		selectedGeneration:   0,
 		menuCursor:           0,
 		width:                80, // Default width
 		height:               24, // Default height
@@ -148,9 +160,16 @@ func (m PokedexModel) viewPokedex() string {
 
 	var s strings.Builder
 
+	title := LabelPOKEDEX
+	if m.selectedType != "" {
+		title += fmt.Sprintf(" [%s %s]", getTypeEmoji(m.selectedType), m.selectedType)
+	} else if m.selectedGeneration > 0 {
+		title += fmt.Sprintf(" [Gen %d]", m.selectedGeneration)
+	}
+
 	s.WriteString(getBoxStyle().Render(
 		lipgloss.JoinVertical(lipgloss.Center,
-			getTitleStyle().Render(LabelPOKEDEX),
+			getTitleStyle().Render(title),
 			"",
 		),
 	))
@@ -198,6 +217,13 @@ func (m PokedexModel) viewPokedex() string {
 			{LabelBROWSE_TYPES, "2"},
 			{LabelBROWSE_GEN, "3"},
 			{LabelFAVORITES, "4"},
+		}
+
+		if m.selectedType != "" || m.selectedGeneration > 0 {
+			menuItems = append(menuItems, struct {
+				label  string
+				hotkey string
+			}{"Limpar Filtros", "0"})
 		}
 
 		// Calculate max width for menu alignment
@@ -249,7 +275,7 @@ func (m PokedexModel) viewSearch() string {
 	s.WriteString(getLabelStyle().Render(LabelSEARCH_QUERY))
 	s.WriteString("\n")
 
-	s.WriteString(lipgloss.NewStyle().Foreground(lipgloss.Color("226")).Render("> " + m.searchQuery + "_"))
+	s.WriteString(m.searchInput.View())
 	s.WriteString("\n\n")
 
 	s.WriteString(getLabelStyle().Render(LabelRESULTS))
@@ -281,7 +307,7 @@ func (m PokedexModel) viewSearch() string {
 
 			s.WriteString(style.Render(fmt.Sprintf("%s #%4d %-20s %s\n", cursor, pokemon.ID, pokemon.NamePT, typeEmoji)))
 		}
-	} else if m.searchQuery != "" {
+	} else if m.searchInput.Value() != "" {
 		s.WriteString(lipgloss.NewStyle().Faint(true).Render(LabelNO_RESULTS))
 		s.WriteString("\n")
 	}
@@ -589,21 +615,44 @@ func (m PokedexModel) updatePokedexView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	case "left", "h":
 		if m.currentPokemon != nil {
-			m.currentPokemon = m.pokedex.GetPrevPokemon(m.currentPokemon.ID)
+			if len(m.pokemonList) > 0 {
+				for i, p := range m.pokemonList {
+					if p.ID == m.currentPokemon.ID {
+						newIdx := (i - 1 + len(m.pokemonList)) % len(m.pokemonList)
+						m.currentPokemon = m.pokemonList[newIdx]
+						m.pokemonListCursor = newIdx
+						break
+					}
+				}
+			} else {
+				m.currentPokemon = m.pokedex.GetPrevPokemon(m.currentPokemon.ID)
+			}
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
 		}
 
 	case "right", "l":
 		if m.currentPokemon != nil {
-			m.currentPokemon = m.pokedex.GetNextPokemon(m.currentPokemon.ID)
+			if len(m.pokemonList) > 0 {
+				for i, p := range m.pokemonList {
+					if p.ID == m.currentPokemon.ID {
+						newIdx := (i + 1) % len(m.pokemonList)
+						m.currentPokemon = m.pokemonList[newIdx]
+						m.pokemonListCursor = newIdx
+						break
+					}
+				}
+			} else {
+				m.currentPokemon = m.pokedex.GetNextPokemon(m.currentPokemon.ID)
+			}
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
 		}
 
 	case "1":
 		m.state = StateSearch
-		m.searchQuery = ""
+		m.searchInput.SetValue("")
+		m.searchInput.Focus()
 		m.searchResults = make([]*models.Pokemon, 0)
-		return m, nil
+		return m, textinput.Blink
 
 	case "v":
 		if m.renderMode == RenderHalfBlock {
@@ -616,6 +665,13 @@ func (m PokedexModel) updatePokedexView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "2":
 		m.state = StateBrowseType
 		m.typeCursor = 0
+		return m, nil
+
+	case "0":
+		// Clear filters
+		m.selectedType = ""
+		m.selectedGeneration = 0
+		m.pokemonList = make([]*models.Pokemon, 0)
 		return m, nil
 
 	case "3":
@@ -634,6 +690,8 @@ func (m PokedexModel) updatePokedexView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			}
 		}
 		m.favoritesCursor = 0
+		m.selectedType = ""
+		m.selectedGeneration = 0
 		return m, nil
 
 	case "enter", " ":
@@ -647,51 +705,52 @@ func (m PokedexModel) updatePokedexView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m PokedexModel) updateSearch(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
-	case "q", "esc":
+	case "esc":
+		m.searchInput.Blur()
 		m.state = StatePokedexView
 		return m, nil
-
-	case "backspace":
-		if len(m.searchQuery) > 0 {
-			m.searchQuery = m.searchQuery[:len(m.searchQuery)-1]
-			m.updateSearchResults()
-		}
 
 	case "enter":
 		if len(m.searchResults) > 0 && m.selectedSearchIndex < len(m.searchResults) {
 			m.currentPokemon = m.searchResults[m.selectedSearchIndex]
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
+			m.searchInput.Blur()
 			m.state = StatePokedexView
 		}
+		return m, nil
 
-	case "up", "k":
+	case "up":
 		if m.selectedSearchIndex > 0 {
 			m.selectedSearchIndex--
 		}
+		return m, nil
 
-	case "down", "j":
+	case "down":
 		if m.selectedSearchIndex < len(m.searchResults)-1 {
 			m.selectedSearchIndex++
 		}
-
-	default:
-		if len(msg.String()) == 1 {
-			m.searchQuery += msg.String()
-			m.updateSearchResults()
-		}
+		return m, nil
 	}
-	return m, nil
+
+	// Forward all other keys to textinput
+	var cmd tea.Cmd
+	m.searchInput, cmd = m.searchInput.Update(msg)
+	m.updateSearchResults()
+	return m, cmd
 }
 
 func (m *PokedexModel) updateSearchResults() {
-	if m.searchQuery == "" {
+	query := m.searchInput.Value()
+	if query == "" {
 		m.searchResults = make([]*models.Pokemon, 0)
 		m.selectedSearchIndex = 0
 		return
 	}
 
 	filter := models.PokemonFilter{
-		Query: m.searchQuery,
+		Query:      query,
+		Type:       m.selectedType,
+		Generation: m.selectedGeneration,
 	}
 	m.searchResults = m.pokedex.Search(filter)
 	m.selectedSearchIndex = 0
@@ -721,6 +780,8 @@ func (m PokedexModel) updateBrowseType(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.currentPokemon = m.pokemonList[0]
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
 		}
+		m.selectedType = selectedType
+		m.selectedGeneration = 0
 		m.state = StatePokedexView
 	}
 	return m, nil
@@ -747,6 +808,8 @@ func (m PokedexModel) updateBrowseGeneration(msg tea.KeyMsg) (tea.Model, tea.Cmd
 		m.pokemonList = m.pokedex.GetPokemonByGeneration(selectedGen.ID)
 		m.generationListCursor = 0
 		if len(m.pokemonList) > 0 {
+			m.selectedGeneration = selectedGen.ID
+			m.selectedType = ""
 			m.state = StateBrowseGenerationList
 		}
 	}
@@ -822,13 +885,35 @@ func (m PokedexModel) updateDetail(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	case "left", "h":
 		if m.currentPokemon != nil {
-			m.currentPokemon = m.pokedex.GetPrevPokemon(m.currentPokemon.ID)
+			if len(m.pokemonList) > 0 {
+				for i, p := range m.pokemonList {
+					if p.ID == m.currentPokemon.ID {
+						newIdx := (i - 1 + len(m.pokemonList)) % len(m.pokemonList)
+						m.currentPokemon = m.pokemonList[newIdx]
+						m.pokemonListCursor = newIdx
+						break
+					}
+				}
+			} else {
+				m.currentPokemon = m.pokedex.GetPrevPokemon(m.currentPokemon.ID)
+			}
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
 		}
 
 	case "right", "l":
 		if m.currentPokemon != nil {
-			m.currentPokemon = m.pokedex.GetNextPokemon(m.currentPokemon.ID)
+			if len(m.pokemonList) > 0 {
+				for i, p := range m.pokemonList {
+					if p.ID == m.currentPokemon.ID {
+						newIdx := (i + 1) % len(m.pokemonList)
+						m.currentPokemon = m.pokemonList[newIdx]
+						m.pokemonListCursor = newIdx
+						break
+					}
+				}
+			} else {
+				m.currentPokemon = m.pokedex.GetNextPokemon(m.currentPokemon.ID)
+			}
 			m.currentPokemon.IsFavorite = m.favorites.IsFavorite(m.currentPokemon.ID)
 		}
 	}
