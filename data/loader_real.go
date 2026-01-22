@@ -142,7 +142,7 @@ func translateType(t string) string {
 		"normal":   "normal",
 		"fire":     "fogo",
 		"water":    "água",
-		"grass":    "grama",
+		"grass":    "erva",
 		"electric": "elétrico",
 		"ice":      "gelo",
 		"fighting": "lutador",
