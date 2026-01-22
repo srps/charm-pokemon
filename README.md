@@ -2,7 +2,7 @@
 
 A beautiful, high-performance Pokemon terminal application (TUI) built with Go and the [Charm](https://charm.sh/) libraries.
 
-![Pokemon TUI](https://raw.githubusercontent.com/charmbracelet/bubbletea/master/.github/bubbletea.png) *(Placeholder image: Add your real screenshot here)*
+![Pokemon TUI](https://raw.githubusercontent.com/srps/charm-pokemon/main/.github/screenshot.png)
 
 ## ✨ Features
 
